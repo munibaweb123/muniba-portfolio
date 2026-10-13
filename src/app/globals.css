@@ -72,8 +72,113 @@ body {
   to { transform: translateX(-50%); }
 }
 
+/* Hero: staggered entrance (set --d for the delay), pulsing status dot, drifting glows, floating photo */
+.hero-in {
+  animation: hero-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+.hero-in-right {
+  animation: hero-in-right 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--d, 0s);
+}
+@keyframes hero-in-right {
+  from { opacity: 0; transform: translateX(36px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+.ping-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: var(--color-teal);
+  animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping {
+  0% { transform: scale(1); opacity: 0.7; }
+  80%, 100% { transform: scale(2.8); opacity: 0; }
+}
+.glow-drift {
+  animation: glow-drift 14s ease-in-out infinite alternate;
+}
+@keyframes glow-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(-40px, 30px) scale(1.15); }
+}
+.float {
+  animation: float 5s ease-in-out infinite;
+}
+@keyframes float {
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+.name-shimmer {
+  background: linear-gradient(100deg, var(--color-amber) 30%, #f0d9ff 50%, var(--color-amber) 70%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5s ease-in-out 1.2s infinite;
+}
+@keyframes shimmer {
+  0% { background-position: 100% 0; }
+  60%, 100% { background-position: -100% 0; }
+}
+
+/* Navbar: slides down on load; mobile menu pops open */
+.nav-in {
+  animation: nav-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes nav-in {
+  from { opacity: 0; transform: translateY(-100%); }
+  to { opacity: 1; transform: none; }
+}
+.menu-pop {
+  transform-origin: top right;
+  animation: menu-pop 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes menu-pop {
+  from { opacity: 0; transform: translateY(-6px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Scroll reveal: Reveal.tsx adds .reveal-pending to below-the-fold blocks */
+.reveal {
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.reveal-pending {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* Contact form: spinner + success checkmark that draws itself */
+.spinner {
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.check-draw {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: draw 0.45s ease 0.1s forwards;
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .hero-in, .hero-in-right { animation: none; }
+  .nav-in, .menu-pop { animation: none; }
+  .ping-dot::after, .glow-drift, .float { animation: none; }
+  .name-shimmer { animation: none; }
+  .reveal { transition: none; }
+  .reveal.reveal-pending { opacity: 1; transform: none; }
+  .spinner { animation: none; }
+  .check-draw { animation: none; stroke-dashoffset: 0; }
   .term-line { animation: none; opacity: 1; }
   .cursor, .marquee { animation: none; }
 }

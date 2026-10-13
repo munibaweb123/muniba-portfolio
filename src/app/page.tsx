@@ -1,5 +1,6 @@
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
+import BackToTop from "@/components/BackToTop";
 import { About, Contact, Footer, Hackathons, Projects, Teaching, Ventures, YouTube } from "@/components/Sections";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <BackToTop />
     </>
   );
 }

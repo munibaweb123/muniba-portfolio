@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Reveal from "./Reveal";
 
 export function Section({
   id,
@@ -15,20 +16,24 @@ export function Section({
 }) {
   return (
     <section id={id} className="mx-auto w-full max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-      <p className="font-mono text-sm text-amber">
-        <span className="text-muted">{"// "}</span>
-        {label}
-      </p>
-      <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-5xl">{title}</h2>
-      {intro && <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{intro}</p>}
-      <div className="mt-12">{children}</div>
+      <Reveal>
+        <p className="font-mono text-sm text-amber">
+          <span className="text-muted">{"// "}</span>
+          {label}
+        </p>
+        <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-5xl">{title}</h2>
+        {intro && <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted">{intro}</p>}
+      </Reveal>
+      <Reveal className="mt-12" delay={120}>
+        {children}
+      </Reveal>
     </section>
   );
 }
 
 export function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="rounded-md border border-line bg-raised px-2 py-1 font-mono text-xs text-muted">
+    <span className="rounded-md border border-line bg-raised px-2 py-1 font-mono text-xs text-muted transition duration-200 hover:-translate-y-0.5 hover:border-amber/50 hover:text-text">
       {children}
     </span>
   );

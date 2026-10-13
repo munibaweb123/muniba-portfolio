@@ -63,7 +63,7 @@ export const about = {
   ],
   education: [
     { degree: "MCS", school: "Virtual University of Pakistan", years: "2020 – 2022" },
-    { degree: "BSCS", school: "SSGGC, University of Karachi", years: "2015 – 2018" },
+    { degree: "BCS", school: "SSGGC, University of Karachi", years: "2015 – 2018" },
   ],
 };
 
@@ -184,6 +184,7 @@ export const teaching = {
     "I taught at the Governor House AI Summer Camp, Faculty Challenge, building hands-on games that teach students AI concepts by letting them fail safely.",
   topics: [
     "AI Prompting for teens (Roman Urdu)",
+    "Markdown in, HTML out, and code you never write",
   ],
   builds: [
     { title: "Teaching games", body: "Built and deployed two playable HTML5 games for the AI Summer Camp: Sycophancy Trap and Context Kitchen, teaching sycophancy and context engineering by letting students fail safely." },

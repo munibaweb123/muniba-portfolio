@@ -1,6 +1,8 @@
 import { about, hackathons, links, projects, stack, teaching, ventures, youtube, profile } from "@/content/site";
 import { ButtonLink, Section, Tag } from "./ui";
 import ContactForm from "./ContactForm";
+import Reveal from "./Reveal";
+import TimelineLine from "./TimelineLine";
 import { SiGithub, SiYoutube, SiFiverr, SiDiscord } from "react-icons/si";
 import { FaLinkedinIn, FaEnvelope } from "react-icons/fa6";
 import type { IconType } from "react-icons";
@@ -19,18 +21,24 @@ export function About() {
     <Section id="about" label="about-me" title="Builder first, teacher always.">
       <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr]">
         <div className="space-y-5 text-lg leading-relaxed text-muted">
-          {about.paragraphs.map((p) => (
-            <p key={p.slice(0, 20)}>{p}</p>
+          {about.paragraphs.map((p, i) => (
+            <Reveal key={p.slice(0, 20)} delay={i * 100}>
+              <p>{p}</p>
+            </Reveal>
           ))}
           <div className="pt-4">
             <p className="font-mono text-sm text-amber">education</p>
             <ul className="mt-3 space-y-2 text-base">
-              {about.education.map((e) => (
-                <li key={e.degree} className="flex flex-wrap justify-between gap-x-4 border-b border-line pb-2">
-                  <span className="text-text">
-                    {e.degree} · {e.school}
-                  </span>
-                  <span className="font-mono text-sm">{e.years}</span>
+              {about.education.map((e, i) => (
+                <li key={e.degree}>
+                  <Reveal delay={i * 100}>
+                    <div className="flex flex-wrap justify-between gap-x-4 border-b border-line pb-2 transition-colors duration-300 hover:border-amber/60">
+                      <span className="text-text">
+                        {e.degree} · {e.school}
+                      </span>
+                      <span className="font-mono text-sm">{e.years}</span>
+                    </div>
+                  </Reveal>
                 </li>
               ))}
             </ul>
@@ -38,25 +46,29 @@ export function About() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           {about.pillars.map((p, i) => (
-            <div key={p.title} className="rounded-2xl border border-line bg-surface p-5">
-              <p className="font-mono text-xs text-muted">0{i + 1}</p>
-              <h3 className="mt-2 font-display text-lg font-semibold">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
-            </div>
+            <Reveal key={p.title} delay={i * 120} className="h-full">
+              <div className="h-full rounded-2xl border border-line bg-surface p-5 transition duration-300 hover:-translate-y-1 hover:border-amber/50 hover:shadow-[0_14px_32px_-18px_var(--color-amber)]">
+                <p className="font-mono text-xs text-amber">0{i + 1}</p>
+                <h3 className="mt-2 font-display text-lg font-semibold">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{p.body}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
 
       <div className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {stack.map((g) => (
-          <div key={g.group} className="rounded-2xl border border-line p-5">
-            <h3 className="font-mono text-sm text-teal">{g.group}</h3>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {g.items.map((i) => (
-                <Tag key={i}>{i}</Tag>
-              ))}
+        {stack.map((g, n) => (
+          <Reveal key={g.group} delay={n * 100} className="h-full">
+            <div className="h-full rounded-2xl border border-line p-5 transition duration-300 hover:border-teal/60">
+              <h3 className="font-mono text-sm text-teal">{g.group}</h3>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {g.items.map((i) => (
+                  <Tag key={i}>{i}</Tag>
+                ))}
+              </div>
             </div>
-          </div>
+          </Reveal>
         ))}
       </div>
     </Section>
@@ -71,19 +83,27 @@ export function Teaching() {
           <p className="font-mono text-sm text-amber">topics I teach</p>
           <ol className="mt-4 space-y-3">
             {teaching.topics.map((t, i) => (
-              <li key={t} className="flex gap-4 border-b border-amber/15 pb-3 last:border-0">
-                <span className="font-mono text-sm text-amber">{String(i + 1).padStart(2, "0")}</span>
-                <span>{t}</span>
+              <li key={t} className="group border-b border-amber/15 pb-3 last:border-0 last:pb-0">
+                <Reveal delay={i * 90}>
+                  <div className="flex gap-4 transition-transform duration-300 hover:translate-x-1.5">
+                    <span className="font-mono text-sm text-amber transition-transform duration-300 group-hover:scale-110">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="transition-colors duration-300 group-hover:text-amber">{t}</span>
+                  </div>
+                </Reveal>
               </li>
             ))}
           </ol>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          {teaching.builds.map((b) => (
-            <div key={b.title} className="rounded-2xl border border-line bg-surface p-5">
-              <h3 className="font-display text-lg font-semibold">{b.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{b.body}</p>
-            </div>
+          {teaching.builds.map((b, i) => (
+            <Reveal key={b.title} delay={i * 110} className="h-full">
+              <div className="h-full rounded-2xl border border-line bg-surface p-5 transition duration-300 hover:-translate-y-1 hover:border-amber/50 hover:shadow-[0_14px_32px_-18px_var(--color-amber)]">
+                <h3 className="font-display text-lg font-semibold">{b.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{b.body}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </div>
@@ -103,10 +123,10 @@ export function Projects() {
       intro="Agent systems, client-ready products and the tools I teach with."
     >
       <div className="grid gap-5 lg:grid-cols-3">
-        {featured.map((p) => (
+        {featured.map((p, i) => (
+          <Reveal key={p.title} delay={i * 120} className="h-full">
           <article
-            key={p.title}
-            className="flex flex-col rounded-2xl border border-line bg-surface p-6 transition hover:border-amber/50"
+            className="flex h-full flex-col rounded-2xl border border-line bg-surface p-6 transition duration-300 hover:-translate-y-1.5 hover:border-amber/50 hover:shadow-[0_18px_40px_-18px_var(--color-amber)]"
           >
             <p className="font-mono text-xs text-amber">{p.kind}</p>
             <h3 className="mt-3 font-display text-2xl font-semibold">{p.title}</h3>
@@ -119,12 +139,16 @@ export function Projects() {
             </div>
             <ProjectLinks repo={p.repo} live={p.live} />
           </article>
+          </Reveal>
         ))}
       </div>
 
       <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {rest.map((p) => (
-          <article key={p.title} className="flex flex-col rounded-2xl border border-line p-5 transition hover:border-amber/50">
+        {rest.map((p, i) => (
+          <Reveal key={p.title} delay={(i % 4) * 90} className="h-full">
+          <article
+            className="flex h-full flex-col rounded-2xl border border-line p-5 transition duration-300 hover:-translate-y-1 hover:border-amber/50 hover:shadow-[0_14px_32px_-18px_var(--color-amber)]"
+          >
             <p className="font-mono text-xs text-muted">{p.kind}</p>
             <h3 className="mt-2 font-display text-lg font-semibold">{p.title}</h3>
             <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{p.summary}</p>
@@ -135,14 +159,15 @@ export function Projects() {
             </div>
             <ProjectLinks repo={p.repo} live={p.live} />
           </article>
+          </Reveal>
         ))}
       </div>
 
-      <div className="mt-10">
+      <Reveal className="mt-10">
         <ButtonLink href={links.github} external>
           All repositories on GitHub →
         </ButtonLink>
-      </div>
+      </Reveal>
     </Section>
   );
 }
@@ -152,13 +177,13 @@ function ProjectLinks({ repo, live }: { repo?: string; live?: string }) {
   return (
     <div className="mt-5 flex gap-4 border-t border-line pt-4 text-sm">
       {live && (
-        <a href={live} target="_blank" rel="noopener noreferrer" className="text-amber hover:underline">
-          Live ↗
+        <a href={live} target="_blank" rel="noopener noreferrer" className="group text-amber hover:underline">
+          Live <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
         </a>
       )}
       {repo && (
-        <a href={repo} target="_blank" rel="noopener noreferrer" className="text-text hover:text-amber">
-          Code ↗
+        <a href={repo} target="_blank" rel="noopener noreferrer" className="group text-text transition-colors hover:text-amber">
+          Code <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
         </a>
       )}
     </div>
@@ -168,20 +193,23 @@ function ProjectLinks({ repo, live }: { repo?: string; live?: string }) {
 export function Hackathons() {
   return (
     <Section id="hackathons" label="hackathons" title="Built under deadline.">
-      <ol className="relative space-y-4 border-l border-line pl-6 sm:pl-8">
-        {hackathons.map((h) => (
-          <li key={h.event} className="relative">
-            <span className="absolute -left-[31px] top-6 h-3 w-3 rounded-full border-2 border-amber bg-ink sm:-left-[39px]" />
-            <div className="rounded-2xl border border-line bg-surface p-5 sm:flex sm:items-start sm:justify-between sm:gap-6">
+      <ol className="relative space-y-4 pl-6 sm:pl-8">
+        <TimelineLine />
+        {hackathons.map((h, i) => (
+          <li key={h.event} className="group relative">
+            <Reveal delay={i * 100}>
+            <span className="absolute -left-[31px] top-6 h-3 w-3 rounded-full border-2 border-amber bg-ink transition duration-300 group-hover:scale-150 group-hover:bg-amber group-hover:shadow-[0_0_14px_var(--color-amber)] sm:-left-[39px]" />
+            <div className="rounded-2xl border border-line bg-surface p-5 transition duration-300 hover:translate-x-1.5 hover:border-amber/50 hover:shadow-[0_14px_32px_-18px_var(--color-amber)] sm:flex sm:items-start sm:justify-between sm:gap-6">
               <div>
                 {h.when && <p className="font-mono text-xs text-muted">{h.when}</p>}
                 <h3 className="mt-1 font-display text-lg font-semibold">{h.event}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{h.what}</p>
               </div>
-              <span className="mt-3 inline-block shrink-0 rounded-full border border-teal/40 px-3 py-1 font-mono text-xs text-teal sm:mt-0">
+              <span className="mt-3 inline-block shrink-0 rounded-full border border-teal/40 px-3 py-1 font-mono text-xs text-teal transition duration-300 group-hover:border-teal group-hover:bg-teal/10 sm:mt-0">
                 {h.status}
               </span>
             </div>
+            </Reveal>
           </li>
         ))}
       </ol>
@@ -195,8 +223,16 @@ export function YouTube() {
       <div className="overflow-hidden rounded-3xl border border-line bg-surface">
         <div className="grid gap-8 p-6 sm:p-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <div>
-            <div className="flex items-center gap-4">
-              <div className="grid h-14 w-14 place-items-center rounded-2xl bg-rose text-2xl font-bold text-ink">▶</div>
+            <div className="group flex items-center gap-4">
+              <div className="relative">
+                <span
+                  aria-hidden
+                  className="absolute inset-0 animate-ping rounded-2xl bg-rose/40 [animation-duration:2.4s] motion-reduce:animate-none"
+                />
+                <div className="relative grid h-14 w-14 place-items-center rounded-2xl bg-rose text-2xl font-bold text-ink transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-6">
+                  ▶
+                </div>
+              </div>
               <div>
                 <h3 className="font-display text-2xl font-semibold">{youtube.channel}</h3>
                 <p className="font-mono text-sm text-muted">{youtube.handle}</p>
@@ -210,19 +246,22 @@ export function YouTube() {
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
-            {youtube.topics.map((t) => (
-              <span key={t} className="rounded-full border border-line bg-raised px-4 py-2 text-sm">
-                {t}
-              </span>
+            {youtube.topics.map((t, i) => (
+              <Reveal key={t} delay={i * 70}>
+                <span className="inline-block rounded-full border border-line bg-raised px-4 py-2 text-sm transition duration-200 hover:-translate-y-0.5 hover:border-rose/60 hover:text-rose">
+                  {t}
+                </span>
+              </Reveal>
             ))}
           </div>
         </div>
 
         {youtube.featured.length > 0 && (
           <div className="grid gap-4 border-t border-line p-6 sm:grid-cols-2 sm:p-10 lg:grid-cols-3">
-            {youtube.featured.map((v) => (
-              <div key={v.id}>
-                <div className="aspect-video overflow-hidden rounded-xl border border-line">
+            {youtube.featured.map((v, i) => (
+              <Reveal key={v.id} delay={i * 120}>
+              <div className="group">
+                <div className="aspect-video overflow-hidden rounded-xl border border-line transition duration-300 group-hover:-translate-y-1 group-hover:border-rose/60 group-hover:shadow-[0_14px_32px_-18px_var(--color-rose)]">
                   <iframe
                     className="h-full w-full"
                     src={`https://www.youtube-nocookie.com/embed/${v.id}`}
@@ -232,8 +271,9 @@ export function YouTube() {
                     allowFullScreen
                   />
                 </div>
-                <p className="mt-2 text-sm">{v.title}</p>
+                <p className="mt-2 text-sm transition-colors duration-300 group-hover:text-rose">{v.title}</p>
               </div>
+              </Reveal>
             ))}
           </div>
         )}
@@ -246,10 +286,11 @@ export function Ventures() {
   return (
     <Section id="ventures" label="ventures & freelance" title="Beyond the day job.">
       <div className="grid gap-5 md:grid-cols-3">
-        {ventures.map((v) => (
-          <div key={v.title} className="flex flex-col rounded-2xl border border-line bg-surface p-6">
+        {ventures.map((v, i) => (
+          <Reveal key={v.title} delay={i * 120} className="h-full">
+          <div className="group flex h-full flex-col rounded-2xl border border-line bg-surface p-6 transition duration-300 hover:-translate-y-1.5 hover:border-teal/60 hover:shadow-[0_18px_40px_-18px_var(--color-teal)]">
             <p className="font-mono text-xs text-teal">{v.role}</p>
-            <h3 className="mt-2 font-display text-2xl font-semibold">{v.title}</h3>
+            <h3 className="mt-2 font-display text-2xl font-semibold transition-colors duration-300 group-hover:text-amber">{v.title}</h3>
             <p className="mt-3 flex-1 leading-relaxed text-muted">{v.body}</p>
             {v.link && (
               <a
@@ -258,10 +299,14 @@ export function Ventures() {
                 rel="noopener noreferrer"
                 className="mt-5 text-sm text-amber hover:underline"
               >
-                View profile ↗
+                View profile{" "}
+                <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                  ↗
+                </span>
               </a>
             )}
           </div>
+          </Reveal>
         ))}
       </div>
     </Section>
@@ -287,25 +332,35 @@ export function Contact() {
     >
       <div className={links.email ? "grid gap-10 lg:grid-cols-[1fr_1.2fr]" : ""}>
         <ul className="flex flex-wrap gap-3">
-          {channels.map((c) => {
+          {channels.map((c, i) => {
             const Icon = channelIcons[c.label];
             return (
               <li key={c.label}>
+                <Reveal delay={i * 80}>
                 <a
                   href={c.href}
                   title={`${c.label} — ${c.value}`}
                   aria-label={`${c.label} — ${c.value}`}
                   {...(c.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="flex h-12 w-12 items-center justify-center rounded-xl border border-line bg-surface transition hover:border-amber/60"
+                  className="group flex h-12 w-12 items-center justify-center rounded-xl border border-line bg-surface transition duration-300 hover:-translate-y-1 hover:border-amber/60 hover:shadow-[0_10px_24px_-12px_var(--color-amber)]"
                 >
-                  {Icon ? <Icon aria-hidden className="h-5 w-5 text-amber" /> : <span className="text-text">{c.label[0]}</span>}
+                  {Icon ? (
+                    <Icon aria-hidden className="h-5 w-5 text-amber transition-transform duration-300 group-hover:scale-125" />
+                  ) : (
+                    <span className="text-text">{c.label[0]}</span>
+                  )}
                 </a>
+                </Reveal>
               </li>
             );
           })}
         </ul>
         {/* The form appears once links.email is set in site.ts */}
-        {links.email && <ContactForm email={links.email} />}
+        {links.email && (
+          <Reveal delay={200}>
+            <ContactForm email={links.email} />
+          </Reveal>
+        )}
       </div>
     </Section>
   );
@@ -314,11 +369,15 @@ export function Contact() {
 export function Footer() {
   return (
     <footer className="border-t border-line">
-      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-8 text-sm text-muted sm:flex-row sm:justify-between sm:px-6">
-        <p>
-          © 2026 {profile.name} · {profile.location}
-        </p>
-        <p className="font-mono">built with next.js · deployed on vercel</p>
+      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-8 text-sm text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <Reveal>
+          <p>
+            © 2026 {profile.name} · {profile.location}
+          </p>
+        </Reveal>
+        <Reveal delay={120}>
+          <p className="font-mono">built with next.js · deployed on vercel</p>
+        </Reveal>
       </div>
     </footer>
   );
