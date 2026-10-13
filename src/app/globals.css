@@ -1,26 +1,79 @@
 @import "tailwindcss";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/jetbrains-mono";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Brand tokens — change these to re-skin the whole site */
+@theme {
+  --color-ink: #0c0e12;
+  --color-surface: #13161c;
+  --color-raised: #1a1e26;
+  --color-line: #242a34;
+  --color-text: #ece8e1;
+  --color-muted: #9097a3;
+  --color-amber: #c084fc;
+  --color-amber-soft: #c084fc1f;
+  --color-teal: #a8334d;
+  --color-rose: #e8697d;
+
+  --font-display: "Bricolage Grotesque Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  background: var(--color-ink);
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--color-amber);
+  color: var(--color-ink);
+}
+
+/* Faint grid behind the hero */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, #ffffff08 1px, transparent 1px),
+    linear-gradient(to bottom, #ffffff08 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 30% 30%, black 20%, transparent 70%);
+}
+
+/* Terminal lines appear one after another */
+.term-line {
+  opacity: 0;
+  animation: term-in 0.4s ease forwards;
+}
+@keyframes term-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: none; }
+}
+.cursor {
+  animation: blink 1.1s steps(1) infinite;
+}
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* Endless stack ticker */
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .term-line { animation: none; opacity: 1; }
+  .cursor, .marquee { animation: none; }
 }

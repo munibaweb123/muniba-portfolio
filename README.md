@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Muniba — Portfolio
 
-## Getting Started
+Next.js 16 + Tailwind v4, fully static. Dark theme with amber and teal accents.
 
-First, run the development server:
+## Edit content
+
+Everything you'll want to change lives in **`src/content/site.ts`**: name, links, stats, projects, hackathons, teaching, YouTube and ventures.
+Any field left as `""` is hidden on the site, so placeholder text never goes live.
+
+To finish it off, fill in:
+
+- `links.email` (this also turns on the contact form), `links.linkedin` and `links.upwork`
+- `repo` / `live` for each project (the Code and Live buttons appear automatically)
+- `profile.photo`: put `profile.jpg` in `/public`, then set it to `"/profile.jpg"`
+- `profile.resumeUrl`: put `resume.pdf` in `/public`, then set it to `"/resume.pdf"`
+- `youtube.featured`: add video IDs to embed your best videos
+- `profile.siteUrl` once you have a custom domain (Vercel's URL is picked up automatically until then)
+
+Colors and fonts are set in `src/app/globals.css` under `@theme`.
+
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Push this folder to a new GitHub repo.
+2. In Vercel, choose New Project, import the repo and deploy. No settings or environment variables are needed.
