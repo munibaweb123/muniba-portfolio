@@ -9,7 +9,7 @@ const terminal: { prompt?: boolean; text: string; tone?: string }[] = [
   { prompt: true, text: "cat stack.txt" },
   { text: "next.js · fastapi · openai-agents-sdk · postgres", tone: "text-teal" },
   { prompt: true, text: "ls ~/now" },
-  { text: "supportnova/   agent-factory-cohort/   techworld/", tone: "text-amber" },
+  { text: "agent-factory-cohort/   techworld/", tone: "text-amber" },
   { prompt: true, text: "echo $MOTTO" },
   { text: "spec it · ship it · teach it", tone: "text-text" },
 ];
